@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .tabActive {
+    @apply bg-tg-button text-tg-button-text
+  }
+}
