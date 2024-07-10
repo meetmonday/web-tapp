@@ -28,5 +28,4 @@
 	<div class="px-4">
 		{@html text}
 	</div>
-	<button on:click={toggleExpand} >Свернуть</button>
 {/if}

@@ -1,7 +1,6 @@
 <script>
   import "../app.css";
 	import TabRouter from "../components/TabRouter.svelte";
-
 </script>
 
 <slot />

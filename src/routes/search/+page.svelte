@@ -31,7 +31,7 @@
 		<input
 			type="text"
 			id="first_name"
-			class="bg-tg-bg border-tg-button border-2 rounded-lg w-full p-2 mr-2 h-12"
+			class="bg-tg-bg border-tg-button border-2 rounded-lg w-full p-2 mr-2 h-12 text-tg-text"
 			placeholder="Поиск не супер, но что-то найдет"
 			bind:value={searchTerm}
 			bind:this={searchInput}
