@@ -14,7 +14,7 @@
 			on:click={toggleExpand}>Показать полностью</button
 		>
 	</div>
-	<div class="max-h-28 overflow-hidden px-4 mb-0 rounded-xl">
+	<div class="max-h-36 overflow-hidden px-4 mb-0 rounded-xl">
 		{@html text.split('.')[0]}
 	</div>
 {:else}
@@ -25,7 +25,7 @@
 			on:click={toggleExpand}>Свернуть</button
 		>
 	</div>
-	<div class="px-4">
+	<div class="px-4 overflow-x-clip">
 		{@html text}
 	</div>
 {/if}

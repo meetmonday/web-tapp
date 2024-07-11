@@ -1,24 +1,24 @@
 <script>
 	import AppElement from '../../components/appElement.svelte';
 	import Banner from '../../components/Banner.svelte';
-	let searchTerm = '';
-	let searchInput = '';
-	let searchAction = false;
-	let data = [];
-	let emptyResult = false;
+	import Search from 'svelte-material-icons/Magnify.svelte';
+	import { apiUrl } from '$lib';
+	import { searchStore } from '../../stores';
 
-	const apiUrl = 'https://special-space-tribble-vq5r7xq5qj53wwqv-3000.app.github.dev';
+	let searchInput = null;
+	let emptyResult = false;
+	let searchAction = false;
 
 	function search() {
-		data = [];
+		$searchStore.results = [];
 		searchAction = true;
 		emptyResult = false;
-		fetch(`${apiUrl}/search?term=${searchTerm}`)
+		fetch(`${apiUrl}/search?term=${$searchStore.term}`)
 			.then((e) => e.json())
 			.then((e) => {
 				emptyResult = false;
 				searchAction = false;
-				if (e.length) data = e;
+				if (e.length) $searchStore.results = e;
 				else emptyResult = true;
 				searchInput.unfocus();
 			});
@@ -26,21 +26,24 @@
 </script>
 
 <!-- <Banner>searchTerm: {searchTerm}</Banner> -->
-<div class="m-4">
-	<form class="flex">
+<div>
+	<form class="flex mb-2">
 		<input
 			type="text"
 			id="first_name"
-			class="bg-tg-bg border-tg-button border-2 rounded-lg w-full p-2 mr-2 h-12 text-tg-text"
-			placeholder="Поиск не супер, но что-то найдет"
-			bind:value={searchTerm}
+			class="bg-tg-secondary-bg rounded-xl w-full px-4 py-2 mx-2 mt-4 text-tg-text"
+			placeholder="Поиск по названию"
+			bind:value={$searchStore.term}
 			bind:this={searchInput}
 			on:submit={search}
+			autofocus
 		/>
-		<button class="bg-tg-button text-tg-button-text rounded-lg size-12" on:click={search}>🔍</button>
+		<button class="bg-tg-button text-tg-button-text rounded-xl px-4 py-2 mt-4 mr-2" on:click={search}>
+			<Search size='24' />
+		</button>
 	</form>
 	{#if searchAction}
-		<Banner>Ищем {searchTerm}...</Banner>
+		<Banner>Ищем {$searchStore.term}...</Banner>
 	{/if}
 	{#if emptyResult}
 		<Banner>Ничего не найдено, попробуйте другой запрос</Banner>
@@ -48,7 +51,7 @@
 </div>
 
 <div class="p-4">
-	{#each data as item}
+	{#each $searchStore.results as item}
 		<AppElement {apiUrl} {item} />
 	{/each}
 </div>

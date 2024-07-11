@@ -1,15 +1,16 @@
 <script>
 	import AppSuggestions from "../components/appSuggestions.svelte";
 	import Banner from "../components/Banner.svelte";
+	import FakeSearchBar from "../components/fakeSearchBar.svelte";
+	import { searchStore } from "../stores";
 
-  window.Telegram.WebApp.BackButton.isVisible = false
-  window.Telegram.WebApp.MainButton.isVisible = false
-	window.showTabs = true
-
+  $searchStore.results = []
+  $searchStore.term = ''
 </script>
-<AppSuggestions category='apps' />
+<FakeSearchBar />
+<AppSuggestions category='apps' title='Рекомендованные программы' />
 <hr class='w-full border-tg-section-separator'/>
-<AppSuggestions category='games' />
+<AppSuggestions category='games' title='Рекомендованные игры' />
 <div class='px-4'>
 <Banner>Скачивайте игры и приложения, а&nbsp;потом они появятся здесь</Banner>
 </div>
